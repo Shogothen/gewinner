@@ -1,5 +1,7 @@
 // ── beamer.js — render-only surface, driven by the control window ─────────
-import { WINNERS, DONATION, COPY, VALUES, STAGE_LABELS, makeChannel, escapeHtml } from "./shared.js";
+import { WINNERS, DONATION, COPY, VALUES, STAGE_LABELS, HOST_LINES, makeChannel, escapeHtml } from "./shared.js";
+
+const pickLine = (arr) => (arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : "");
 
 const chan = makeChannel();
 const $ = (id) => document.getElementById(id);
@@ -172,8 +174,6 @@ function render(s) {
   }
 
   if (stage.type === "reveal" && w) {
-    $("reveal-kicker").textContent =
-      w.values.length > 1 ? "Recognised for" : "Recognised for";
     $("reveal-name").textContent = w.name;
     $("reveal-values").innerHTML = w.values
       .map((v) => `<span class="win-value">${escapeHtml(v)}</span>`).join("");
@@ -183,6 +183,22 @@ function render(s) {
     $("laud-body").textContent = w.laudatio;
     $("laud-name").textContent = `— for ${w.name}`;
     $("laud-kicker").textContent = w.kicker || "";
+  }
+
+  // ── host speech bubbles: reroll only when the stage is freshly entered ──
+  if (isNew) {
+    const bubbleFor = {
+      open: ["bubble-open", HOST_LINES.open],
+      values: ["bubble-values", HOST_LINES.values],
+      envelope: ["bubble-env", HOST_LINES.envelope],
+      reveal: ["bubble-reveal", HOST_LINES.reveal],
+      donation: ["bubble-don", HOST_LINES.donation],
+      close: ["bubble-close", HOST_LINES.close],
+    }[stage.type];
+    if (bubbleFor) {
+      const el = $(bubbleFor[0]);
+      if (el) el.textContent = pickLine(bubbleFor[1]);
+    }
   }
 
   // ── one-shot effects on entering a stage ──
