@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cofinity-X — Employee Recognition</title>
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* ── beamer canvas ─────────────────────────────────────────────────── */
+  .beamer { position: relative; width: 100vw; height: 100vh; overflow: hidden;
+    padding: clamp(24px, 3vw, 48px); display: flex; flex-direction: column; }
+  .b-top { display: flex; align-items: baseline; gap: 14px; flex: 0 0 auto; }
+  .b-wordmark { font-weight: 800; font-size: clamp(18px, 1.8vw, 26px); letter-spacing: -0.02em; }
+  .b-wordmark span { font-family: 'JetBrains Mono', monospace; font-weight: 500;
+    font-size: 0.62em; color: var(--muted); letter-spacing: 0.14em; margin-left: 8px; }
+  .b-stage-tag { margin-left: auto; font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(10px, 1vw, 13px); color: var(--muted); letter-spacing: 0.12em;
+    text-transform: uppercase; }
+
+  .b-main { flex: 1 1 auto; position: relative; display: flex; }
+
+  /* every view fills the stage area */
+  .view { position: absolute; inset: 0; display: none; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    gap: min(2.4vh, 20px); }
+  .view.show { display: flex; animation: viewIn .55s cubic-bezier(.2,.75,.3,1) both; }
+  @keyframes viewIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+  .kicker { font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    font-size: clamp(11px, 1.2vw, 16px); letter-spacing: 0.24em; text-transform: uppercase; }
+  .title { font-weight: 800; letter-spacing: -0.03em; line-height: 1.04;
+    font-size: clamp(38px, 6.4vw, 104px); margin: 0; white-space: pre-line; }
+  .sub { color: var(--muted); font-size: clamp(15px, 1.9vw, 26px); margin: 0; max-width: 30ch; line-height: 1.45; }
+
+  /* ── values screen ─────────────────────────────────────────────────── */
+  .values-grid { display: flex; gap: min(2.4vw, 28px); margin-top: min(3vh, 26px);
+    flex-wrap: wrap; justify-content: center; max-width: 92vw; }
+  .value-card { background: var(--panel); border: 1px solid var(--line);
+    border-radius: 20px; padding: clamp(18px, 2.2vw, 30px) clamp(20px, 2.4vw, 34px);
+    min-width: min(28vw, 330px); max-width: 360px; text-align: left;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.06);
+    animation: cardIn .55s cubic-bezier(.2,.8,.3,1.15) both; }
+  .value-card:nth-child(1) { animation-delay: .10s; }
+  .value-card:nth-child(2) { animation-delay: .24s; }
+  .value-card:nth-child(3) { animation-delay: .38s; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
+  .value-card h3 { margin: 0 0 8px; font-size: clamp(17px, 1.9vw, 25px); font-weight: 700;
+    letter-spacing: -0.01em; }
+  .value-card p { margin: 0; color: var(--muted); font-size: clamp(13px, 1.3vw, 17px); line-height: 1.5; }
+
+  /* ── envelope / suspense screen ────────────────────────────────────── */
+  .env-badge { font-family: 'JetBrains Mono', monospace; font-size: clamp(11px,1.2vw,15px);
+    letter-spacing: 0.2em; text-transform: uppercase; color: #fff;
+    background: var(--grad); padding: 8px 20px; border-radius: 999px; }
+  .env-line { font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+    font-size: clamp(30px, 5vw, 78px); margin: 0; }
+  .env-dots { display: flex; gap: 14px; margin-top: 10px; }
+  .env-dots span { width: clamp(10px,1.1vw,15px); height: clamp(10px,1.1vw,15px);
+    border-radius: 50%; background: var(--o2); opacity: .3; animation: envPulse 1.4s ease-in-out infinite; }
+  .env-dots span:nth-child(2) { animation-delay: .22s; }
+  .env-dots span:nth-child(3) { animation-delay: .44s; }
+  @keyframes envPulse { 0%,100% { opacity:.25; transform: scale(1); } 50% { opacity:1; transform: scale(1.35); } }
+
+  /* ── winner reveal ─────────────────────────────────────────────────── */
+  .win-kicker { font-family: 'JetBrains Mono', monospace; font-size: clamp(11px,1.2vw,16px);
+    letter-spacing: 0.24em; text-transform: uppercase; }
+  .win-name { font-weight: 800; letter-spacing: -0.035em; line-height: 1.02;
+    font-size: clamp(46px, 8.6vw, 148px); margin: 0;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: nameIn .75s cubic-bezier(.2,.8,.25,1.3) .1s both; }
+  @keyframes nameIn {
+    0%   { opacity: 0; transform: scale(.62) translateY(34px); }
+    60%  { opacity: 1; transform: scale(1.05) translateY(0); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .win-values { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-top: min(2vh, 16px); }
+  .win-value { background: var(--panel); border: 1.5px solid transparent;
+    background-image: linear-gradient(#fff,#fff), var(--grad);
+    background-origin: border-box; background-clip: padding-box, border-box;
+    border-radius: 999px; padding: 10px 22px; font-weight: 700;
+    font-size: clamp(14px, 1.6vw, 22px); letter-spacing: -0.01em;
+    animation: chipIn .5s cubic-bezier(.2,.8,.3,1.3) both; }
+  .win-value:nth-child(1) { animation-delay: .55s; }
+  .win-value:nth-child(2) { animation-delay: .70s; }
+  @keyframes chipIn { from { opacity: 0; transform: translateY(14px) scale(.9); } to { opacity: 1; transform: none; } }
+
+  /* ── laudatio ──────────────────────────────────────────────────────── */
+  .laud-name { font-weight: 700; font-size: clamp(20px, 2.6vw, 38px); letter-spacing: -0.02em;
+    margin: 0; }
+  .laud-body { font-size: clamp(19px, 2.5vw, 40px); line-height: 1.42; font-weight: 500;
+    max-width: 24ch; margin: 0; letter-spacing: -0.01em; }
+  .laud-mark { font-size: clamp(46px, 6vw, 92px); line-height: .6; color: var(--o2);
+    font-weight: 800; height: .5em; }
+  .laud-kicker { color: var(--muted); font-size: clamp(14px,1.5vw,20px); margin: 0; }
+
+  /* ── donation ──────────────────────────────────────────────────────── */
+  .don-amount { font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    font-size: clamp(58px, 11vw, 190px); line-height: 1; letter-spacing: -0.04em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: nameIn .8s cubic-bezier(.2,.8,.25,1.25) both; }
+  .don-body { font-size: clamp(16px, 2vw, 28px); line-height: 1.45; max-width: 26ch;
+    color: var(--ink-soft); margin: 0; }
+  .don-note { font-family: 'JetBrains Mono', monospace; color: var(--muted);
+    font-size: clamp(12px,1.2vw,16px); margin: 0; }
+  .don-names { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .don-chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 18px; font-weight: 600; font-size: clamp(13px,1.4vw,19px); }
+
+  /* ── closing ───────────────────────────────────────────────────────── */
+  .close-names { display: flex; gap: min(3vw,34px); flex-wrap: wrap; justify-content: center;
+    margin-top: min(2vh, 18px); }
+  .close-name { font-weight: 800; font-size: clamp(24px, 3.6vw, 56px); letter-spacing: -0.025em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; }
+
+  /* ── confetti + waiting ────────────────────────────────────────────── */
+  .confetti { position: fixed; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 50; display: none; }
+  .confetti.show { display: block; }
+  .waiting { position: fixed; inset: 0; display: flex; align-items: center;
+    justify-content: center; flex-direction: column; gap: 10px; background: var(--canvas);
+    z-index: 80; text-align: center; padding: 30px; }
+  .waiting h2 { font-weight: 700; font-size: 24px; letter-spacing: -0.02em; margin: 0; }
+  .waiting p { color: var(--muted); font-size: 14px; max-width: 44ch; line-height: 1.6; margin: 0; }
+  body.connected .waiting { display: none; }
+
+  .sound-toggle { position: fixed; top: 18px; right: 22px; z-index: 60;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+    padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+    background: #fff; color: var(--ink); cursor: pointer; opacity: .55;
+    transition: opacity .2s ease, transform .1s ease; }
+  .sound-toggle:hover { opacity: 1; }
+  .sound-toggle.on { background: var(--grad); color: #fff; border-color: transparent; opacity: .9; }
+  .sound-toggle:active { transform: scale(.95); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .view.show, .win-name, .value-card, .win-value, .don-amount {
+      animation: none !important; transition: none !important; }
+    .confetti { display: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="beamer" id="beamer">
+    <canvas id="confetti" class="confetti"></canvas>
+    <button id="sound-toggle" class="sound-toggle">🔇 Enable sound</button>
+
+    <header class="b-top">
+      <div class="b-wordmark">Cofinity-X<span>EMPLOYEE RECOGNITION</span></div>
+      <div class="b-stage-tag" id="stage-tag"></div>
+    </header>
+
+    <div class="b-main">
+      <!-- opening -->
+      <div class="view" id="v-open">
+        <span class="kicker grad-text" id="open-kicker">Employee Recognition</span>
+        <h1 class="title" id="open-title">—</h1>
+        <p class="sub" id="open-sub">—</p>
+      </div>
+
+      <!-- values -->
+      <div class="view" id="v-values">
+        <span class="kicker grad-text" id="values-kicker">Our values in action</span>
+        <div class="values-grid" id="values-grid"></div>
+      </div>
+
+      <!-- envelope / suspense -->
+      <div class="view" id="v-envelope">
+        <span class="env-badge" id="env-badge">Award 1 of 2</span>
+        <p class="env-line" id="env-line">And the recognition goes to…</p>
+        <div class="env-dots"><span></span><span></span><span></span></div>
+      </div>
+
+      <!-- winner reveal -->
+      <div class="view" id="v-reveal">
+        <span class="win-kicker grad-text" id="reveal-kicker">Recognised for</span>
+        <h1 class="win-name" id="reveal-name">—</h1>
+        <div class="win-values" id="reveal-values"></div>
+      </div>
+
+      <!-- laudatio -->
+      <div class="view" id="v-laudatio">
+        <div class="laud-mark">"</div>
+        <p class="laud-body" id="laud-body">—</p>
+        <p class="laud-name" id="laud-name">—</p>
+        <p class="laud-kicker" id="laud-kicker"></p>
+      </div>
+
+      <!-- donation -->
+      <div class="view" id="v-donation">
+        <span class="kicker grad-text" id="don-kicker">Your prize, your cause</span>
+        <div class="don-amount" id="don-amount">€500</div>
+        <p class="don-body" id="don-body">—</p>
+        <div class="don-names" id="don-names"></div>
+        <p class="don-note" id="don-note"></p>
+      </div>
+
+      <!-- closing -->
+      <div class="view" id="v-close">
+        <span class="kicker grad-text" id="close-kicker">Thank you</span>
+        <h1 class="title" id="close-title">Congratulations</h1>
+        <div class="close-names" id="close-names"></div>
+        <p class="sub" id="close-sub">—</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="waiting" id="waiting">
+    <h2>Beamer ready</h2>
+    <p>Waiting for the control window on this computer. Keep the control tab open —
+       this screen updates live.</p>
+  </div>
+
+  <script type="module" src="assets/beamer.js"></script>
+</body>
+</html>
