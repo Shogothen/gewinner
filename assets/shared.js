@@ -33,6 +33,11 @@ export const WINNERS = [
 
 // ── Kicktipp (World Cup prediction game) ─────────────────────────────────
 export const KICKTIPP = {
+  // intro slide (shown first, no names yet)
+  introKicker: "Before we start",
+  introTitle: "The Kicktipp\nis settled",
+  introSub: "A whole World Cup of confident predictions. Three of you got closest.",
+  // podium slide
   kicker: "Kicktipp · World Cup",
   title: "Our prediction champions",
   sub: "A whole tournament of confident guesses. Here's who guessed best.",
@@ -79,6 +84,11 @@ export const COPY = {
 
 // ── Host one-liners — the host only appears on the opening and the envelope ─
 export const HOST_LINES = {
+  kicktippIntro: [
+    "Some of you tipped with your heart. It shows.",
+    "Group stage confidence, knockout humility.",
+    "Let's settle this before the serious part.",
+  ],
   open: [
     "Two people. A lot of quiet good work. Let's begin.",
     "This is the part of the year I actually look forward to.",
@@ -101,7 +111,7 @@ export const VALUES = [
 // ── Stage sequence ────────────────────────────────────────────────────────
 // The whole show is a linear list of stages. Next/Prev walks through it.
 export function buildStages() {
-  const stages = [{ type: "kicktipp" }, { type: "open" }, { type: "values" }];
+  const stages = [{ type: "kicktipp-intro" }, { type: "kicktipp" }, { type: "open" }, { type: "values" }];
   WINNERS.forEach((w, i) => {
     stages.push({ type: "envelope", winner: i }); // "and the award goes to…"
     stages.push({ type: "reveal", winner: i });   // name + values, confetti
@@ -114,7 +124,8 @@ export function buildStages() {
 }
 
 export const STAGE_LABELS = {
-  kicktipp: "Kicktipp",
+  "kicktipp-intro": "Kicktipp intro",
+  kicktipp: "Kicktipp podium",
   open: "Opening",
   values: "Values",
   envelope: "Envelope",

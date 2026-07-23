@@ -121,6 +121,11 @@ const sound = (() => {
 
 // ── static content that never changes ────────────────────────────────────
 function paintStatic() {
+  // kicktipp intro
+  $("kti-kicker").textContent = KICKTIPP.introKicker;
+  $("kti-title").textContent = KICKTIPP.introTitle;
+  $("kti-sub").textContent = KICKTIPP.introSub;
+
   // kicktipp podium
   const MEDAL = { 1: "🥇", 2: "🥈", 3: "🥉" };
   $("kt-kicker").textContent = KICKTIPP.kicker;
@@ -163,6 +168,7 @@ function paintStatic() {
 paintStatic();
 
 const VIEWS = {
+  "kicktipp-intro": "v-kicktipp-intro",
   kicktipp: "v-kicktipp",
   open: "v-open", values: "v-values", envelope: "v-envelope",
   reveal: "v-reveal", laudatio: "v-laudatio", standout: "v-standout",
@@ -210,6 +216,7 @@ function render(s) {
   // ── host speech bubbles: only the two stages that still have the host ──
   if (isNew) {
     const bubbleFor = {
+      "kicktipp-intro": ["bubble-kt", HOST_LINES.kicktippIntro],
       open: ["bubble-open", HOST_LINES.open],
       envelope: ["bubble-env", HOST_LINES.envelope],
     }[stage.type];

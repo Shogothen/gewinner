@@ -10,8 +10,10 @@ let index = 0;
 function describe(st) {
   const w = st.winner != null ? WINNERS[st.winner] : null;
   switch (st.type) {
-    case "kicktipp": return { title: "Kicktipp — World Cup podium",
-                              detail: "1. Francisca · 2. Joshua · 3. Niklas. Light opener before the recognition." };
+    case "kicktipp-intro": return { title: "Kicktipp — intro",
+                              detail: "Set it up, no names yet. Press Next to build the podium." };
+    case "kicktipp": return { title: "Kicktipp — podium",
+                              detail: "1. Francisca · 2. Joshua · 3. Niklas. Columns grow, confetti fires." };
     case "open":     return { title: "Opening", detail: "Welcome slide. Set the tone, then press Next." };
     case "values":   return { title: "Our values", detail: "The three values appear as cards. Brief framing here." };
     case "envelope": return { title: `Envelope — award ${st.winner + 1}`,
