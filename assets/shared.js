@@ -65,39 +65,17 @@ export const COPY = {
   closeSub: "To our winners — and to everyone who nominated them.",
 };
 
-// ── Host one-liners (warm, not sarcastic — this is a tribute, not a quiz) ─
+// ── Host one-liners — the host only appears on the opening and the envelope ─
 export const HOST_LINES = {
   open: [
     "Two people. A lot of quiet good work. Let's begin.",
     "This is the part of the year I actually look forward to.",
     "Nominated by colleagues. That's the highest bar there is.",
   ],
-  values: [
-    "Values only count when someone lives them.",
-    "Three values. Two people who made them real.",
-  ],
   envelope: [
     "No drumroll. Just deserved.",
     "You already know. Say it anyway.",
     "Here we go.",
-  ],
-  reveal: [
-    "Very well deserved.",
-    "Nobody's surprised. Everyone's pleased.",
-    "Take the applause. You earned it.",
-  ],
-  standout: [
-    "That's the part worth repeating.",
-    "This is what the nomination kept coming back to.",
-  ],
-  donation: [
-    "Recognition that leaves the building.",
-    "Two causes, well chosen.",
-    "Somebody else has a good day because of this.",
-  ],
-  close: [
-    "Same time next year. Bar's higher now.",
-    "Thank you — all of you.",
   ],
 };
 

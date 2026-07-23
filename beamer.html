@@ -25,13 +25,15 @@
     gap: min(2.4vh, 20px); padding-right: min(30vw, 420px); }
   .view.show { display: flex; animation: viewIn .5s cubic-bezier(.2,.7,.3,1) both; }
   @keyframes viewIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  /* screens without the host use the full stage width */
+  .view.no-host { padding-right: 0; }
 
   .kicker { font-family: 'JetBrains Mono', monospace; font-weight: 600;
     font-size: clamp(11px, 1.2vw, 16px); letter-spacing: 0.24em; text-transform: uppercase;
     position: relative; z-index: 2; }
   .title { font-weight: 800; letter-spacing: -0.03em; line-height: 1.04;
-    font-size: clamp(36px, 5.6vw, 92px); margin: 0; white-space: pre-line;
-    max-width: 16ch; position: relative; z-index: 2; }
+    font-size: clamp(38px, 5.9vw, 100px); margin: 0; white-space: pre-line;
+    max-width: 17ch; position: relative; z-index: 2; }
   .sub { color: var(--muted); font-size: clamp(15px, 1.9vw, 26px); margin: 0;
     max-width: 26ch; line-height: 1.45; position: relative; z-index: 2; }
 
@@ -67,8 +69,8 @@
   .values-grid { display: flex; gap: min(1.8vw, 22px); margin-top: min(2.4vh, 20px);
     flex-wrap: wrap; justify-content: center; position: relative; z-index: 2; }
   .value-card { background: var(--panel); border: 1px solid var(--line);
-    border-radius: 20px; padding: clamp(16px, 1.9vw, 26px) clamp(18px, 2.1vw, 28px);
-    width: min(21vw, 260px); text-align: left;
+    border-radius: 20px; padding: clamp(18px, 2.1vw, 30px) clamp(20px, 2.3vw, 32px);
+    width: min(24vw, 320px); text-align: left;
     box-shadow: 0 14px 40px rgba(0,0,0,0.06);
     animation: cardIn .55s cubic-bezier(.2,.8,.3,1.15) both; }
   .value-card:nth-child(1) { animation-delay: .10s; }
@@ -106,7 +108,7 @@
   .win-kicker { font-family: 'JetBrains Mono', monospace; font-size: clamp(11px,1.2vw,16px);
     letter-spacing: 0.24em; text-transform: uppercase; position: relative; z-index: 2; }
   .win-name { font-weight: 800; letter-spacing: -0.035em; line-height: 1.02;
-    font-size: clamp(40px, 6.6vw, 116px); margin: 0; max-width: 13ch;
+    font-size: clamp(44px, 7.6vw, 138px); margin: 0; max-width: 14ch;
     background: var(--grad); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; position: relative; z-index: 2;
     animation: nameIn .75s cubic-bezier(.2,.8,.25,1.3) .12s both; }
@@ -130,8 +132,8 @@
   /* ── laudatio ──────────────────────────────────────────────────────── */
   .laud-mark { font-size: clamp(44px, 5.6vw, 88px); line-height: .6; color: var(--o2);
     font-weight: 800; height: .5em; position: relative; z-index: 2; }
-  .laud-body { font-size: clamp(16px, 1.95vw, 30px); line-height: 1.4; font-weight: 500;
-    max-width: 23ch; margin: 0; letter-spacing: -0.01em; position: relative; z-index: 2; }
+  .laud-body { font-size: clamp(18px, 2.25vw, 38px); line-height: 1.4; font-weight: 500;
+    max-width: 26ch; margin: 0; letter-spacing: -0.01em; position: relative; z-index: 2; }
   .laud-name { font-weight: 700; font-size: clamp(17px, 2vw, 30px); letter-spacing: -0.02em;
     margin: 0; position: relative; z-index: 2;
     background: var(--grad); -webkit-background-clip: text; background-clip: text;
@@ -140,8 +142,8 @@
     position: relative; z-index: 2; }
 
   /* ── what stood out (short, punchy — bigger than the laudatio) ──────── */
-  .stand-body { font-size: clamp(24px, 3.2vw, 54px); line-height: 1.28; font-weight: 700;
-    max-width: 17ch; margin: 0; letter-spacing: -0.02em; position: relative; z-index: 2;
+  .stand-body { font-size: clamp(26px, 3.7vw, 64px); line-height: 1.26; font-weight: 700;
+    max-width: 19ch; margin: 0; letter-spacing: -0.02em; position: relative; z-index: 2;
     animation: standIn .6s cubic-bezier(.2,.8,.3,1.15) .1s both; }
   @keyframes standIn { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: none; } }
   .stand-name { font-weight: 600; font-size: clamp(15px, 1.7vw, 24px); letter-spacing: -0.01em;
@@ -152,7 +154,7 @@
   /* ── donation ──────────────────────────────────────────────────────── */
   .don-head { display: flex; align-items: baseline; gap: 12px; position: relative; z-index: 2; }
   .don-amount { font-family: 'JetBrains Mono', monospace; font-weight: 600;
-    font-size: clamp(44px, 6.6vw, 108px); line-height: 1; letter-spacing: -0.04em;
+    font-size: clamp(50px, 7.6vw, 128px); line-height: 1; letter-spacing: -0.04em;
     background: var(--grad); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: nameIn .8s cubic-bezier(.2,.8,.25,1.25) both; }
@@ -162,8 +164,8 @@
   .cause-grid { display: flex; gap: min(2vw, 24px); justify-content: center;
     flex-wrap: wrap; margin-top: min(2vh, 16px); position: relative; z-index: 2; }
   .cause-card { background: #fff; border: 1px solid var(--line); border-radius: 20px;
-    padding: clamp(14px, 1.7vw, 22px) clamp(16px, 1.9vw, 26px);
-    width: min(23vw, 290px); display: flex; flex-direction: column; align-items: center;
+    padding: clamp(16px, 1.9vw, 26px) clamp(18px, 2.1vw, 30px);
+    width: min(26vw, 340px); display: flex; flex-direction: column; align-items: center;
     gap: 10px; box-shadow: 0 14px 40px rgba(0,0,0,0.07);
     animation: cardIn .6s cubic-bezier(.2,.8,.3,1.15) both; }
   .cause-card:nth-child(1) { animation-delay: .25s; }
@@ -248,11 +250,7 @@
       </div>
 
       <!-- values -->
-      <div class="view" id="v-values">
-        <div class="host-wrap">
-          <div class="bubble" id="bubble-values"></div>
-          <img src="assets/host/host-finger.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-values">
         <span class="kicker grad-text" id="values-kicker">Our values in action</span>
         <div class="values-grid" id="values-grid"></div>
       </div>
@@ -269,11 +267,7 @@
       </div>
 
       <!-- winner reveal -->
-      <div class="view" id="v-reveal">
-        <div class="host-wrap">
-          <div class="bubble" id="bubble-reveal"></div>
-          <img src="assets/host/host-trophy.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-reveal">
         <div class="win-trophy">🏆</div>
         <span class="win-kicker grad-text">Recognised for</span>
         <h1 class="win-name" id="reveal-name">—</h1>
@@ -281,10 +275,7 @@
       </div>
 
       <!-- laudatio -->
-      <div class="view" id="v-laudatio">
-        <div class="host-wrap">
-          <img src="assets/host/host-tablet.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-laudatio">
         <div class="laud-mark">"</div>
         <p class="laud-body" id="laud-body">—</p>
         <p class="laud-name" id="laud-name">—</p>
@@ -292,22 +283,14 @@
       </div>
 
       <!-- what stood out -->
-      <div class="view" id="v-standout">
-        <div class="host-wrap">
-          <div class="bubble" id="bubble-standout"></div>
-          <img src="assets/host/host-point.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-standout">
         <span class="kicker grad-text">What stood out</span>
         <p class="stand-body" id="stand-body">—</p>
         <p class="stand-name" id="stand-name">—</p>
       </div>
 
       <!-- donation -->
-      <div class="view" id="v-donation">
-        <div class="host-wrap">
-          <div class="bubble" id="bubble-don"></div>
-          <img src="assets/host/host-point.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-donation">
         <span class="kicker grad-text" id="don-kicker">Your prize, your cause</span>
         <div class="don-head">
           <span class="don-amount" id="don-amount">€500</span>
@@ -318,11 +301,7 @@
       </div>
 
       <!-- closing -->
-      <div class="view" id="v-close">
-        <div class="host-wrap">
-          <div class="bubble" id="bubble-close"></div>
-          <img src="assets/host/host-trophy.png" alt="" />
-        </div>
+      <div class="view no-host" id="v-close">
         <span class="kicker grad-text" id="close-kicker">Thank you</span>
         <h1 class="title" id="close-title">Congratulations</h1>
         <div class="close-names" id="close-names"></div>

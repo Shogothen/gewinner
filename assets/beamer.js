@@ -194,16 +194,11 @@ function render(s) {
     $("stand-name").textContent = w.name;
   }
 
-  // ── host speech bubbles: reroll only when the stage is freshly entered ──
+  // ── host speech bubbles: only the two stages that still have the host ──
   if (isNew) {
     const bubbleFor = {
       open: ["bubble-open", HOST_LINES.open],
-      values: ["bubble-values", HOST_LINES.values],
       envelope: ["bubble-env", HOST_LINES.envelope],
-      reveal: ["bubble-reveal", HOST_LINES.reveal],
-      standout: ["bubble-standout", HOST_LINES.standout],
-      donation: ["bubble-don", HOST_LINES.donation],
-      close: ["bubble-close", HOST_LINES.close],
     }[stage.type];
     if (bubbleFor) {
       const el = $(bubbleFor[0]);
