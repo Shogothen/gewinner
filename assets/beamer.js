@@ -1,5 +1,5 @@
 // ── beamer.js — render-only surface, driven by the control window ─────────
-import { WINNERS, DONATION, COPY, VALUES, STAGE_LABELS, HOST_LINES, makeChannel, escapeHtml } from "./shared.js";
+import { WINNERS, DONATION, COPY, VALUES, KICKTIPP, STAGE_LABELS, HOST_LINES, makeChannel, escapeHtml } from "./shared.js";
 
 const pickLine = (arr) => (arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : "");
 
@@ -121,6 +121,18 @@ const sound = (() => {
 
 // ── static content that never changes ────────────────────────────────────
 function paintStatic() {
+  // kicktipp podium
+  const MEDAL = { 1: "🥇", 2: "🥈", 3: "🥉" };
+  $("kt-kicker").textContent = KICKTIPP.kicker;
+  $("kt-title").textContent = KICKTIPP.title;
+  $("kt-sub").textContent = KICKTIPP.sub;
+  $("podium").innerHTML = KICKTIPP.podium.map((p) => `
+    <div class="pod pod-${p.place}">
+      <span class="pod-medal">${MEDAL[p.place] || ""}</span>
+      <span class="pod-name">${escapeHtml(p.name)}</span>
+      <div class="pod-bar"><span class="pod-place">${p.place}</span></div>
+    </div>`).join("");
+
   $("open-kicker").textContent = COPY.openKicker;
   $("open-title").textContent = COPY.openTitle;
   $("open-sub").textContent = COPY.openSub;
@@ -151,6 +163,7 @@ function paintStatic() {
 paintStatic();
 
 const VIEWS = {
+  kicktipp: "v-kicktipp",
   open: "v-open", values: "v-values", envelope: "v-envelope",
   reveal: "v-reveal", laudatio: "v-laudatio", standout: "v-standout",
   donation: "v-donation", close: "v-close",
@@ -210,6 +223,9 @@ function render(s) {
   if (isNew) {
     if (stage.type === "reveal") {
       confetti.burst(4000);
+      if (sound.isOn()) sound.reveal();
+    } else if (stage.type === "kicktipp") {
+      confetti.burst(2600);
       if (sound.isOn()) sound.reveal();
     } else {
       confetti.stop();

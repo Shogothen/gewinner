@@ -65,6 +65,39 @@
   @keyframes riseIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
   @keyframes hostSlideIn { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
 
+  /* ── kicktipp podium ───────────────────────────────────────────────── */
+  .kt-title { font-weight: 800; letter-spacing: -0.03em; line-height: 1.04;
+    font-size: clamp(30px, 4.4vw, 74px); margin: 0; max-width: 18ch;
+    position: relative; z-index: 2; }
+  .podium { display: flex; align-items: flex-end; justify-content: center;
+    gap: min(2.2vw, 26px); margin-top: min(2.4vh, 20px); position: relative; z-index: 2; }
+  .pod { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pod-name { font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+    font-size: clamp(18px, 2.3vw, 36px);
+    animation: podName .55s cubic-bezier(.2,.8,.3,1.25) both; }
+  .pod-1 .pod-name { font-size: clamp(24px, 3.2vw, 52px);
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; }
+  .pod-medal { font-size: clamp(26px, 3.2vw, 48px); line-height: 1;
+    animation: podName .6s cubic-bezier(.2,.8,.3,1.4) both; }
+  .pod-bar { width: min(15vw, 190px); border-radius: 16px 16px 0 0;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 14px; transform-origin: bottom;
+    animation: podGrow .7s cubic-bezier(.2,.8,.25,1) both; }
+  .pod-place { font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    font-size: clamp(22px, 3vw, 46px); color: #fff; line-height: 1; }
+  .pod-1 .pod-bar { height: min(26vh, 210px); background: var(--grad); }
+  .pod-2 .pod-bar { height: min(19vh, 155px); background: linear-gradient(180deg, #F7A823, #FF8A4A); }
+  .pod-3 .pod-bar { height: min(14vh, 115px); background: linear-gradient(180deg, #FF8A4A, #F0464B); }
+  .pod-1 .pod-bar { animation-delay: .40s; }
+  .pod-2 .pod-bar { animation-delay: .16s; }
+  .pod-3 .pod-bar { animation-delay: .28s; }
+  .pod-1 .pod-name, .pod-1 .pod-medal { animation-delay: .78s; }
+  .pod-2 .pod-name, .pod-2 .pod-medal { animation-delay: .54s; }
+  .pod-3 .pod-name, .pod-3 .pod-medal { animation-delay: .66s; }
+  @keyframes podGrow { from { transform: scaleY(0); opacity: .4; } to { transform: scaleY(1); opacity: 1; } }
+  @keyframes podName { from { opacity: 0; transform: translateY(14px) scale(.9); } to { opacity: 1; transform: none; } }
+
   /* ── values screen ─────────────────────────────────────────────────── */
   .values-grid { display: flex; gap: min(1.8vw, 22px); margin-top: min(2.4vh, 20px);
     flex-wrap: wrap; justify-content: center; position: relative; z-index: 2; }
@@ -238,6 +271,14 @@
     </header>
 
     <div class="b-main">
+      <!-- kicktipp podium -->
+      <div class="view no-host" id="v-kicktipp">
+        <span class="kicker grad-text" id="kt-kicker">Kicktipp · World Cup</span>
+        <h1 class="kt-title" id="kt-title">—</h1>
+        <div class="podium" id="podium"></div>
+        <p class="sub" id="kt-sub">—</p>
+      </div>
+
       <!-- opening -->
       <div class="view" id="v-open">
         <div class="host-wrap">

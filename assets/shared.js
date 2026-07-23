@@ -31,6 +31,18 @@ export const WINNERS = [
   },
 ];
 
+// ── Kicktipp (World Cup prediction game) ─────────────────────────────────
+export const KICKTIPP = {
+  kicker: "Kicktipp · World Cup",
+  title: "Our prediction champions",
+  sub: "A whole tournament of confident guesses. Here's who guessed best.",
+  podium: [
+    { place: 2, name: "Joshua" },
+    { place: 1, name: "Francisca" },
+    { place: 3, name: "Niklas" },
+  ],
+};
+
 // ── Donation segment ──────────────────────────────────────────────────────
 export const DONATION = {
   amount: "€500",
@@ -89,7 +101,7 @@ export const VALUES = [
 // ── Stage sequence ────────────────────────────────────────────────────────
 // The whole show is a linear list of stages. Next/Prev walks through it.
 export function buildStages() {
-  const stages = [{ type: "open" }, { type: "values" }];
+  const stages = [{ type: "kicktipp" }, { type: "open" }, { type: "values" }];
   WINNERS.forEach((w, i) => {
     stages.push({ type: "envelope", winner: i }); // "and the award goes to…"
     stages.push({ type: "reveal", winner: i });   // name + values, confetti
@@ -102,6 +114,7 @@ export function buildStages() {
 }
 
 export const STAGE_LABELS = {
+  kicktipp: "Kicktipp",
   open: "Opening",
   values: "Values",
   envelope: "Envelope",
