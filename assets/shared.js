@@ -35,10 +35,23 @@ export const WINNERS = [
 export const DONATION = {
   amount: "€500",
   headline: "Your prize, your cause",
-  body:
-    "Each winner donates €500 to a charitable organisation of their choice — " +
-    "recognition that reaches beyond this room.",
-  note: "Tell us your organisation and we'll take care of the rest.",
+  body: "Each winner directs €500 to a cause they care about.",
+  note: "Recognition that reaches beyond this room.",
+  // who gives to whom
+  causes: [
+    {
+      winner: "Madalina Lucaci",
+      org: "Hundehilfe NRW e.V.",
+      logo: "assets/logos/hundehilfe.png",
+      blurb: "Rescue and rehoming for dogs in need across NRW.",
+    },
+    {
+      winner: "Marco Cella",
+      org: "Médecins Sans Frontières",
+      logo: "assets/logos/msf.svg",
+      blurb: "Medical aid where it's needed most, wherever that is.",
+    },
+  ],
 };
 
 // ── Opening / closing copy ────────────────────────────────────────────────
@@ -79,7 +92,8 @@ export const HOST_LINES = {
   ],
   donation: [
     "Recognition that leaves the building.",
-    "Pick a cause. We'll handle the rest.",
+    "Two causes, well chosen.",
+    "Somebody else has a good day because of this.",
   ],
   close: [
     "Same time next year. Bar's higher now.",

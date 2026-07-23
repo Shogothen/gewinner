@@ -150,19 +150,35 @@
     -webkit-text-fill-color: transparent; }
 
   /* ── donation ──────────────────────────────────────────────────────── */
+  .don-head { display: flex; align-items: baseline; gap: 12px; position: relative; z-index: 2; }
   .don-amount { font-family: 'JetBrains Mono', monospace; font-weight: 600;
-    font-size: clamp(54px, 8.6vw, 150px); line-height: 1; letter-spacing: -0.04em;
+    font-size: clamp(44px, 6.6vw, 108px); line-height: 1; letter-spacing: -0.04em;
     background: var(--grad); -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; position: relative; z-index: 2;
+    -webkit-text-fill-color: transparent;
     animation: nameIn .8s cubic-bezier(.2,.8,.25,1.25) both; }
-  .don-body { font-size: clamp(15px, 1.8vw, 25px); line-height: 1.45; max-width: 23ch;
-    color: var(--ink-soft); margin: 0; position: relative; z-index: 2; }
+  .don-each { font-family: 'JetBrains Mono', monospace; color: var(--muted);
+    font-size: clamp(13px, 1.5vw, 21px); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .cause-grid { display: flex; gap: min(2vw, 24px); justify-content: center;
+    flex-wrap: wrap; margin-top: min(2vh, 16px); position: relative; z-index: 2; }
+  .cause-card { background: #fff; border: 1px solid var(--line); border-radius: 20px;
+    padding: clamp(14px, 1.7vw, 22px) clamp(16px, 1.9vw, 26px);
+    width: min(23vw, 290px); display: flex; flex-direction: column; align-items: center;
+    gap: 10px; box-shadow: 0 14px 40px rgba(0,0,0,0.07);
+    animation: cardIn .6s cubic-bezier(.2,.8,.3,1.15) both; }
+  .cause-card:nth-child(1) { animation-delay: .25s; }
+  .cause-card:nth-child(2) { animation-delay: .42s; }
+  .cause-logo { height: clamp(38px, 4.6vw, 62px); width: 100%;
+    display: flex; align-items: center; justify-content: center; }
+  .cause-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
+  .cause-winner { font-family: 'JetBrains Mono', monospace; font-size: clamp(10px,1.05vw,13px);
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .cause-org { font-weight: 700; font-size: clamp(14px, 1.55vw, 21px); letter-spacing: -0.01em;
+    line-height: 1.2; text-align: center; }
+  .cause-blurb { color: var(--muted); font-size: clamp(11px, 1.15vw, 15px); line-height: 1.45;
+    text-align: center; margin: 0; }
   .don-note { font-family: 'JetBrains Mono', monospace; color: var(--muted);
-    font-size: clamp(11px,1.15vw,15px); margin: 0; position: relative; z-index: 2; }
-  .don-names { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-    margin-top: 4px; position: relative; z-index: 2; }
-  .don-chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
-    padding: 8px 18px; font-weight: 600; font-size: clamp(12px,1.3vw,18px); }
+    font-size: clamp(11px,1.15vw,15px); margin: 6px 0 0; position: relative; z-index: 2; }
 
   /* ── closing ───────────────────────────────────────────────────────── */
   .close-names { display: flex; gap: min(2.4vw,26px); flex-wrap: wrap; justify-content: center;
@@ -293,9 +309,11 @@
           <img src="assets/host/host-point.png" alt="" />
         </div>
         <span class="kicker grad-text" id="don-kicker">Your prize, your cause</span>
-        <div class="don-amount" id="don-amount">€500</div>
-        <p class="don-body" id="don-body">—</p>
-        <div class="don-names" id="don-names"></div>
+        <div class="don-head">
+          <span class="don-amount" id="don-amount">€500</span>
+          <span class="don-each">each</span>
+        </div>
+        <div class="cause-grid" id="cause-grid"></div>
         <p class="don-note" id="don-note"></p>
       </div>
 

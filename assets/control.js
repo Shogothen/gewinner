@@ -20,8 +20,8 @@ function describe(st) {
                               detail: "The nomination in full. Read it aloud while it's on screen." };
     case "standout": return { title: `What stood out — ${w.name}`,
                               detail: "The one line that summed it up. Let it land, then move on." };
-    case "donation": return { title: "Donation",
-                              detail: "The €500-per-winner donation moment. Invite them to name their cause." };
+    case "donation": return { title: "Donation — €500 each",
+                              detail: "Madalina → Hundehilfe NRW · Marco → Médecins Sans Frontières" };
     case "close":    return { title: "Closing", detail: "Final thank-you slide with both names." };
     default:         return { title: "—", detail: "" };
   }

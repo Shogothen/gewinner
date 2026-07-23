@@ -137,10 +137,14 @@ function paintStatic() {
 
   $("don-kicker").textContent = DONATION.headline;
   $("don-amount").textContent = DONATION.amount;
-  $("don-body").textContent = DONATION.body;
   $("don-note").textContent = DONATION.note;
-  $("don-names").innerHTML = WINNERS.map((w) =>
-    `<span class="don-chip">${escapeHtml(w.name)}</span>`).join("");
+  $("cause-grid").innerHTML = (DONATION.causes || []).map((c) => `
+    <div class="cause-card">
+      <div class="cause-logo"><img src="${c.logo}" alt="${escapeHtml(c.org)}" /></div>
+      <span class="cause-winner">${escapeHtml(c.winner)}</span>
+      <span class="cause-org">${escapeHtml(c.org)}</span>
+      <p class="cause-blurb">${escapeHtml(c.blurb || "")}</p>
+    </div>`).join("");
   $("close-names").innerHTML = WINNERS.map((w) =>
     `<span class="close-name">${escapeHtml(w.name)}</span>`).join("");
 }
