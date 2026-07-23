@@ -148,7 +148,8 @@ paintStatic();
 
 const VIEWS = {
   open: "v-open", values: "v-values", envelope: "v-envelope",
-  reveal: "v-reveal", laudatio: "v-laudatio", donation: "v-donation", close: "v-close",
+  reveal: "v-reveal", laudatio: "v-laudatio", standout: "v-standout",
+  donation: "v-donation", close: "v-close",
 };
 
 function render(s) {
@@ -182,7 +183,11 @@ function render(s) {
   if (stage.type === "laudatio" && w) {
     $("laud-body").textContent = w.laudatio;
     $("laud-name").textContent = `— for ${w.name}`;
-    $("laud-kicker").textContent = w.kicker || "";
+  }
+
+  if (stage.type === "standout" && w) {
+    $("stand-body").textContent = w.standout || "";
+    $("stand-name").textContent = w.name;
   }
 
   // ── host speech bubbles: reroll only when the stage is freshly entered ──
@@ -192,6 +197,7 @@ function render(s) {
       values: ["bubble-values", HOST_LINES.values],
       envelope: ["bubble-env", HOST_LINES.envelope],
       reveal: ["bubble-reveal", HOST_LINES.reveal],
+      standout: ["bubble-standout", HOST_LINES.standout],
       donation: ["bubble-don", HOST_LINES.donation],
       close: ["bubble-close", HOST_LINES.close],
     }[stage.type];

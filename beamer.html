@@ -130,14 +130,24 @@
   /* ── laudatio ──────────────────────────────────────────────────────── */
   .laud-mark { font-size: clamp(44px, 5.6vw, 88px); line-height: .6; color: var(--o2);
     font-weight: 800; height: .5em; position: relative; z-index: 2; }
-  .laud-body { font-size: clamp(17px, 2.1vw, 33px); line-height: 1.42; font-weight: 500;
-    max-width: 21ch; margin: 0; letter-spacing: -0.01em; position: relative; z-index: 2; }
+  .laud-body { font-size: clamp(16px, 1.95vw, 30px); line-height: 1.4; font-weight: 500;
+    max-width: 23ch; margin: 0; letter-spacing: -0.01em; position: relative; z-index: 2; }
   .laud-name { font-weight: 700; font-size: clamp(17px, 2vw, 30px); letter-spacing: -0.02em;
     margin: 0; position: relative; z-index: 2;
     background: var(--grad); -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; }
   .laud-kicker { color: var(--muted); font-size: clamp(13px,1.4vw,19px); margin: 0;
     position: relative; z-index: 2; }
+
+  /* ── what stood out (short, punchy — bigger than the laudatio) ──────── */
+  .stand-body { font-size: clamp(24px, 3.2vw, 54px); line-height: 1.28; font-weight: 700;
+    max-width: 17ch; margin: 0; letter-spacing: -0.02em; position: relative; z-index: 2;
+    animation: standIn .6s cubic-bezier(.2,.8,.3,1.15) .1s both; }
+  @keyframes standIn { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: none; } }
+  .stand-name { font-weight: 600; font-size: clamp(15px, 1.7vw, 24px); letter-spacing: -0.01em;
+    margin: 0; position: relative; z-index: 2;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; }
 
   /* ── donation ──────────────────────────────────────────────────────── */
   .don-amount { font-family: 'JetBrains Mono', monospace; font-weight: 600;
@@ -263,6 +273,17 @@
         <p class="laud-body" id="laud-body">—</p>
         <p class="laud-name" id="laud-name">—</p>
         <p class="laud-kicker" id="laud-kicker"></p>
+      </div>
+
+      <!-- what stood out -->
+      <div class="view" id="v-standout">
+        <div class="host-wrap">
+          <div class="bubble" id="bubble-standout"></div>
+          <img src="assets/host/host-point.png" alt="" />
+        </div>
+        <span class="kicker grad-text">What stood out</span>
+        <p class="stand-body" id="stand-body">—</p>
+        <p class="stand-name" id="stand-name">—</p>
       </div>
 
       <!-- donation -->

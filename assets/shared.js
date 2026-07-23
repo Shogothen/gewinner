@@ -8,21 +8,26 @@ export const WINNERS = [
   {
     name: "Madalina Lucaci",
     values: ["Customer Focus"],
+    // Part 1: what the nomination said
     laudatio:
-      "Whenever a customer question lands, Madalina is already halfway to the answer. " +
-      "She listens first, follows through without being asked, and leaves people " +
-      "feeling genuinely looked after. That is Customer Focus in practice.",
-    // optional: short quote or closing line under the laudatio
-    kicker: "",
+      "Nominated for her strong customer focus, attention to detail and consistency " +
+      "in Support — understanding customer issues, helping customers and colleagues " +
+      "with the right material, and giving Product the feedback that improves our service.",
+    // Part 2: the line that stood out
+    standout:
+      "She does not stop until the customer need is properly addressed.",
   },
   {
     name: "Marco Cella",
     values: ["Ownership & Empowerment", "Continuous Improvement"],
     laudatio:
-      "Marco takes hold of problems no one assigned to him and quietly makes them " +
-      "someone's win — usually the team's. He leaves every process a little better " +
-      "than he found it, and he brings others along while doing it.",
-    kicker: "",
+      "Two nominations, two values. Recognised for strong ownership in cloud and " +
+      "infrastructure — expert support on critical issues, unblocking teams, keeping " +
+      "the platform stable. And for the IngressController migration: coordinating teams, " +
+      "planning the production update, moving from Nginx to HAProxy without downtime.",
+    standout:
+      "Technical expertise, reliability, and a commitment to infrastructure that " +
+      "supports application teams and protects Cofinity-X.",
   },
 ];
 
@@ -68,6 +73,10 @@ export const HOST_LINES = {
     "Nobody's surprised. Everyone's pleased.",
     "Take the applause. You earned it.",
   ],
+  standout: [
+    "That's the part worth repeating.",
+    "This is what the nomination kept coming back to.",
+  ],
   donation: [
     "Recognition that leaves the building.",
     "Pick a cause. We'll handle the rest.",
@@ -92,7 +101,8 @@ export function buildStages() {
   WINNERS.forEach((w, i) => {
     stages.push({ type: "envelope", winner: i }); // "and the award goes to…"
     stages.push({ type: "reveal", winner: i });   // name + values, confetti
-    stages.push({ type: "laudatio", winner: i }); // tribute text
+    stages.push({ type: "laudatio", winner: i }); // what the nomination said
+    stages.push({ type: "standout", winner: i }); // the line that stood out
   });
   stages.push({ type: "donation" });
   stages.push({ type: "close" });
@@ -105,6 +115,7 @@ export const STAGE_LABELS = {
   envelope: "Envelope",
   reveal: "Winner reveal",
   laudatio: "Laudatio",
+  standout: "What stood out",
   donation: "Donation",
   close: "Closing",
 };
